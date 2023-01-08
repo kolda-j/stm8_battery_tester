@@ -1,4 +1,3 @@
-// Vzorový projekt pro STM8S103F
 #include "stm8s.h"
 #include "delay.h"
 #include "milis.h"
@@ -32,9 +31,9 @@
 uint16_t charge_counter = 0;
 uint16_t discharge_counter = 0;
 uint16_t d = 2; // nastaveni vybijeciho proudu
-									// 2=100mA, 5=253mA, 20=1009mA
+		// 2=100mA, 5=253mA, 20=1009mA
 uint16_t ch = 12; //nastaveni nabijeciho proudu 
-                                    //  =100mA, =250mA, =1000mA, (5000mah 3,5V baterie pro nabijeni)
+		  //  =100mA, =250mA, =1000mA
 
 void init(void)
 {   //discharge
@@ -72,7 +71,7 @@ void charge_up_resistance(void)
 	_delay_us(100);
 	GPIO_WriteHigh(charge_increment_port, charge_increment_pin);
 }
-
+, (5000mah 3,5V baterie pro nabijeni)
 void charge_down_resistance(void)
 {
 	GPIO_WriteLow(charge_up_down_port, charge_up_down_pin);
