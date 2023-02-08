@@ -16,6 +16,8 @@
   <p>PA2 = INC</p>
   <p>PA1 = CS</p>
   <p>PD1 = Enable</p>
+  <p>PB5 = CHRG</p>
+
   
   #### Buttons
   <p>PC3 = button1</p>
