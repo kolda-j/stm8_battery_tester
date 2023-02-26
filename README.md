@@ -5,7 +5,7 @@
 ---
   
 ## Pinout
-<p align="center"><img src="media/pinout.png"><p>
+<p align="center"><img src="media/pinout_1.png"><p>
 
   #### Discharge
   <p>PD4 = U/D</p>
