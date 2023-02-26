@@ -2,18 +2,19 @@
 
 ## Schéma zapojení
 <p align="center"><img src="media/schematic.png"><p>
+<p>Obr č.1</p>
   
 ---
   
 ## STM8S Dero Board Pinout
 <p align="center"><img src="media/pinout_1.png"><p>
-<p>Tabulka č.1</p>
+<p>Tab č.1</p>
   
 ---
   
 ## Seznam Součástek
 <p align="left"><img src="media/BOM.png"><p>
-<p>Tabulka č.2</p>
+<p>Tab č.2</p>
 
 ---
   
@@ -25,3 +26,6 @@
 
 
 <p align="left"><img src="media/tp4056.jpg"><p>
+  <p style="text-align: left;">Obr č.2</p>
+<p align="right"><img src="media/Rprog.png"><p>
+  <p style="text-align: right;">Tab č.3</p>
