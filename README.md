@@ -1,4 +1,4 @@
-# stm8_battery_tester
+<h1 align="center"> Battery tester s STM8 </h1>
 <p align="center">Dlouhodobá maturitní práce Jiřího Koldy.</p>
 <p align="center">(4.B, 2022/23)</p>
 
