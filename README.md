@@ -9,4 +9,6 @@
   
 ---
   
-## BOM 
+## Seznam Součástek
+<p align="center"><img src="media/BOM.png"><p>
+
