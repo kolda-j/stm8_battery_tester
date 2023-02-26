@@ -5,6 +5,8 @@
 ---
   
 ## Pinout
+<p align="center"><img src="media/pinout.png"><p>
+
   #### Discharge
   <p>PD4 = U/D</p>
   <p>PD5 = INC</p>
