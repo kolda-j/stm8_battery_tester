@@ -26,6 +26,9 @@
 
 
 <p align="left"><img src="media/tp4056.jpg"><p>
-  <p style="text-align: left;">Obr č.2</p>
-<p align="right"><img src="media/Rprog.png"><p>
-  <p style="text-align: right;">Tab č.3</p>
+  <p>Obr č.2</p>
+<p align="left"><img src="media/Rprog.png"><p>
+  <p>Tab č.3</p>
+
+---
+
