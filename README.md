@@ -1,4 +1,7 @@
 # stm8_battery_tester
+Dlouhodobá maturitní práce Jiřího Koldy 
+
+---
 
 ## Schéma zapojení
 <p align="center"><img src="media/schematic.png"><p>
