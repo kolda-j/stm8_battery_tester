@@ -33,5 +33,6 @@
 ---
 
 ## Krabička
+<p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně</p>
 <p align="center"><img src="media/enclosure.png"><p>
 <p>Obr č.3</p>
