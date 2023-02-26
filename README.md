@@ -32,3 +32,6 @@
 
 ---
 
+## Krabička
+<p align="center"><img src="media/enclosure.png"><p>
+<p>Obr č.3</p>
