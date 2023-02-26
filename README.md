@@ -24,4 +24,4 @@
 <p>Poslední úprava na desce je odpájení pinu CHRG(Pin7) a jeho připojení na pin STM8. V případě že se baterie nabíjí je pin CHRG nastaven na logickou 0, v opačném případě je nastaven na logickou 1. Nyní může program reagovat na ukončení nabíjení.</p>
 
 
-<p align="left"><img src="media/tp4056.png"><p>
+<p align="left"><img src="media/tp4056.jpg"><p>
