@@ -1,5 +1,6 @@
 # stm8_battery_tester
-Dlouhodobá maturitní práce Jiřího Koldy 
+<p align="center">Dlouhodobá maturitní práce Jiřího Koldy.</p>
+<p align="center">(4.B, 2022/23)</p>
 
 ---
 
