@@ -10,5 +10,8 @@
 ---
   
 ## Seznam Součástek
-<p align="center"><img src="media/BOM.png"><p>
+<p align="left"><img src="media/BOM.png"><p>
 
+---
+  
+  
