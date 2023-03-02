@@ -36,7 +36,59 @@
 
 ---
 
+
+## Program
+#### Ovládání digitálních potenciometrů 
+Zařízení používá digitální potenciometry pro nastavení nabíjecího a vybíjecího proudu baterie. Změna odporu potenciometru probíhá skokově, a to ve sto krocích. Ke změně o jeden krok slouží funkce ```discharge_up_resistance && discharge_down_resistance``` (stejná dvojice funkcí existuje i pro nabíjecí část obvodu). Posun o jeden krkok uskutečníme kombinací logických 1 a 0 podle tabulky č.4
+
+```c 
+void discharge_up_resistance(void)
+{
+	GPIO_WriteHigh(discharge_up_down_port, discharge_up_down_pin);
+	GPIO_WriteLow(discharge_increment_port, discharge_increment_pin);
+	_delay_us(100);
+	GPIO_WriteHigh(discharge_increment_port, discharge_increment_pin);
+}
+```
+
+
+```c 
+void discharge_down_resistance(void)
+{
+	GPIO_WriteLow(discharge_up_down_port, discharge_up_down_pin);
+	GPIO_WriteLow(discharge_increment_port, discharge_increment_pin);
+	_delay_us(100);
+	GPIO_WriteHigh(discharge_increment_port, discharge_increment_pin);
+} 
+```
+<p align="left"><img src="media/digitalpot_table.png"><p>
+<p>Tab č.4</p>
+
+Následující část programu "vynuluje" potenciometr a nastaví požadovaný odpor. Proměnná ```d``` reprezentuje počet kroků o které se má odpor snížit z maxima
+
+```c
+void discharge_setup(void)
+{
+    while (discharge_counter < 100)
+    {
+        discharge_up_resistance();
+        discharge_counter++;
+    } 
+    discharge_counter = 0;     
+    while (discharge_counter < d) 
+    {
+        discharge_down_resistance();
+        discharge_counter++;
+    } 
+}
+```
+
+---
+
+
 ## Krabička
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
 <p>Obr č.3</p>
+
+
