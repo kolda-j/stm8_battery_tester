@@ -35,6 +35,8 @@
 </p>
 <p>Obr č.4, č.5</p>
 
+---
+
 ## Úprava nabíječky TP4056
 <p>Tato sekce popisuje úpravy, které byly provedeny na výše zmíněném modulu TP4056.</p>
 <p>Je třeba odpájet rezistor R3(Rprog), jeho hodnota nastavuje nabíjecí proud (viz tabulka č.3). Místo něj se pájecí plošky připojí na piny digitálního potenciometru VH a VW. Díky této úpravě můžeme nastavit nabíjecí proud pomocí STM8</p>
