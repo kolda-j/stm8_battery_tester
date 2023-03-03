@@ -20,9 +20,6 @@
 <p align="left"><img src="media/BOM.png"><p>
 <p>Tab č.2</p>
 
-<div style="page-break-before: always;"></div>
-
-
 ---
   
 ### Osazená univerzální deska 
