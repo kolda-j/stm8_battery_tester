@@ -11,7 +11,7 @@
 ---
   
 ## STM8S Dero Board Pinout
-<p align="center"><img src="media/pinout_1.png"><p>
+<p align="center"><img src="media/pinout_2.png"><p>
 <p>Tab č.1</p>
   
 ---
@@ -36,6 +36,16 @@
 
 ---
 
+## Metoda nabíjení CC-CV
+<p>Nabíjení lithiových článků probíhá metodou CC-CV. Nejdříve se baterie nabíjí v režimu konstantního proudu (CC - Constant Current), do doby než baterie dosáhne svého horního mezního napětí. V tuto chvíli se nabíječka přepne do režimu konstantního napětí (CV - Constant Voltage) a dojde k omezení nabíjecího proudu. Při dosažení horní meze napětí dojde k nasycení baterie, a proud tím klesá. Příklad nabíjecí charakteristiky pro baterii s kapacitou 1000mAh můžeme vidět na obrázku č.3 </p>
+<p align="left"><img src="media/tp4056_char.png"><p>
+  <p>Obr č.3</p>
+  
+---
+
+## Metoda vybíjení baterie a výpočtu kapacity 
+<p>Vybíjení baterie začne ve chvíli kdy STM8 nastaví svůj výstup PD3 na logickou 0, v tuto chvíli se začne baterie vybíjet předem nastaveným proudem. Vybíjecí proud je konstantní (není závislý na napětí připojené baterie). Mikrokontroler v pravidelných intervalech měří napětí na děliči, které se rovná polovině napětí baterie. Zároveň také počítá uplynulý čas od začátku vybíjení, až po jeho ukončení. Právě díky těmto hodnotám je zařízení schopno vypočítat kapacitu baterie. </p>
+<p>Vzorec výpočtu je následující : $Kapacita[Ah] = I[A] * t[h]$
 
 ## Program
 #### Ovládání digitálních potenciometrů 
@@ -61,7 +71,7 @@ void discharge_down_resistance(void)
 	GPIO_WriteHigh(discharge_increment_port, discharge_increment_pin);
 } 
 ```
-<p align="left"><img src="media/digitalpot_table.png"><p>
+<p align="center"><img src="media/digitalpot_table.png"><p>
 <p>Tab č.4</p>
 
 Následující část programu "vynuluje" potenciometr a nastaví požadovaný odpor. Proměnná ```d``` reprezentuje počet kroků o které se má odpor snížit z maxima
@@ -89,6 +99,6 @@ void discharge_setup(void)
 ## Krabička
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
-<p>Obr č.3</p>
+<p>Obr č.4</p>
 
 
