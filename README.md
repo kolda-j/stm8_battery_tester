@@ -19,7 +19,9 @@
 ## Seznam Součástek
 <p align="left"><img src="media/BOM.png"><p>
 <p>Tab č.2</p>
-<div style="page-break-after: always;"></div>
+<div class="page"></div>
+&zwj;
+
 
 ---
   
@@ -90,7 +92,8 @@ void discharge_down_resistance(void)
 <p align="center"><img src="media/digitalpot_table.png"><p>
 <p>Tab č.4</p>
 
-<div style="page-break-after: always;"></div>
+<div class="page"></div>
+&zwj;
 
 Následující část programu "vynuluje" potenciometr a nastaví požadovaný odpor. Proměnná ```d``` reprezentuje počet kroků o které se má odpor snížit z maxima
 
