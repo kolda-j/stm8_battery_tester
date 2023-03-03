@@ -11,7 +11,7 @@
 ---
   
 ## STM8S Dero Board Pinout
-<p align="center"><img src="media/pinout_2.png"><p>
+<p align="center"><img src="media/pinout_3.png"><p>
 <p>Tab č.1</p>
   
 ---
