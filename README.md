@@ -22,6 +22,19 @@
 
 ---
   
+### Osazená univerzální deska 
+
+<p float="center">
+  <img src="media/pcb.jpg" width="500" />
+  <img src="media/pcb1.jpg" width="500" /> 
+</p>
+<p>Obr č.2, č.3</p>
+<p float="center">
+  <img src="media/pcb2.jpg" width="500" />
+  <img src="media/pcb3.jpg" width="500" /> 
+</p>
+<p>Obr č.4, č.5</p>
+
 ## Úprava nabíječky TP4056
 <p>Tato sekce popisuje úpravy, které byly provedeny na výše zmíněném modulu TP4056.</p>
 <p>Je třeba odpájet rezistor R3(Rprog), jeho hodnota nastavuje nabíjecí proud (viz tabulka č.3). Místo něj se pájecí plošky připojí na piny digitálního potenciometru VH a VW. Díky této úpravě můžeme nastavit nabíjecí proud pomocí STM8</p>
@@ -30,7 +43,7 @@
 
 
 <p align="left"><img src="media/tp4056.jpg"><p>
-  <p>Obr č.2</p>
+  <p>Obr č.6</p>
 <p align="left"><img src="media/Rprog.png"><p>
   <p>Tab č.3</p>
 
@@ -39,7 +52,7 @@
 ## Metoda nabíjení CC-CV
 <p>Nabíjení lithiových článků probíhá metodou CC-CV. Nejdříve se baterie nabíjí v režimu konstantního proudu (CC - Constant Current), do doby než baterie dosáhne svého horního mezního napětí. V tuto chvíli se nabíječka přepne do režimu konstantního napětí (CV - Constant Voltage) a dojde k omezení nabíjecího proudu. Při dosažení horní meze napětí dojde k nasycení baterie, a proud tím klesá. Příklad nabíjecí charakteristiky pro baterii s kapacitou 1000mAh můžeme vidět na obrázku č.3 </p>
 <p align="left"><img src="media/tp4056_char.png"><p>
-  <p>Obr č.3</p>
+  <p>Obr č.7</p>
   
 ---
 
@@ -99,6 +112,6 @@ void discharge_setup(void)
 ## Krabička
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
-<p>Obr č.4</p>
+<p>Obr č.8</p>
 
 
