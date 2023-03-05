@@ -5,7 +5,7 @@
 ---
 
 ## Schéma zapojení
-<p align="center"><img src="media/schematic.png"><p>
+<p align="center"><img src="media/schematic1.png"><p>
 <p>Obr č.1</p>
   
 ---
@@ -17,7 +17,7 @@
 ---
   
 ## Seznam Součástek
-<p align="left"><img src="media/BOM.png"><p>
+<p align="left"><img src="media/BOM1.png"><p>
 <p>Tab č.2</p>
 
 ---
@@ -117,5 +117,3 @@ void discharge_setup(void)
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
 <p>Obr č.8</p>
-
-
