@@ -4,6 +4,17 @@
 
 ---
 
+## Specifikace zařízení
+1) Rozměry - 140mm x 100mm x 110mm
+2) Vstupy a výstupy - Napájecí konektor 5.5 x 2.1 mm samice - Šroubovací konektor 2P pro připojení baterie
+3) Napájecí zdroj - 5V alespoň 2A 
+4) Komunikace s uživatelem - Display MAX7219, 2x tlačítko 6x6x5mm
+5) Kompatibilní baterie - baterie typu Li-ion a Li-polymer, baterie musí být opatřeny vývody v podobě kabelu, nebo musí být umístěny do příslušného držáku s kabelovým vývodem (platí hlavně pro baterie formátu 18650, 14500, 16340, 26650 a podobné). Zařízení funguje pro baterie, které mají kapacitu od 200mAh do 10Ah
+6) Nabíjecí a vybíjecí proud - zařízení má tři nastavení proudu (100mA, 250mA a 1000mA) 
+ 		    
+
+---
+
 ## Schéma zapojení
 <p align="center"><img src="media/schematic1.png"><p>
 <p>Obr č.1</p>
