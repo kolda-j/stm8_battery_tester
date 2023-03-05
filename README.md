@@ -5,13 +5,25 @@
 ---
 
 ## Specifikace zařízení
-1) Rozměry - 140mm x 100mm x 110mm
-2) Vstupy a výstupy - Napájecí konektor 5.5 x 2.1 mm samice - Šroubovací konektor 2P pro připojení baterie
-3) Napájecí zdroj - 5V alespoň 2A 
-4) Komunikace s uživatelem - Display MAX7219, 2x tlačítko 6x6x5mm
-5) Kompatibilní baterie - baterie typu Li-ion a Li-polymer, baterie musí být opatřeny vývody v podobě kabelu, nebo musí být umístěny do příslušného držáku s kabelovým vývodem (platí hlavně pro baterie formátu 18650, 14500, 16340, 26650 a podobné). Zařízení funguje pro baterie, které mají kapacitu od 200mAh do 10Ah
+1) Rozměry - 140mm x 100mm x 110mm.
+2) Vstupy a výstupy - Napájecí konektor 5.5 x 2.1 mm samice - Šroubovací konektor 2P pro připojení baterie.
+3) Napájecí zdroj - 5V alespoň 2A.
+4) Komunikace s uživatelem - Display MAX7219, 2x tlačítko 6x6x5mm.
+5) Kompatibilní baterie - baterie typu Li-ion a Li-polymer, baterie musí být opatřeny vývody v podobě kabelu, nebo musí být umístěny do příslušného držáku s kabelovým vývodem (platí hlavně pro baterie formátu 18650, 14500, 16340, 26650 a podobné). Zařízení funguje pro baterie, které mají kapacitu od 200mAh do 10Ah.
 6) Nabíjecí a vybíjecí proud - zařízení má tři nastavení proudu (100mA, 250mA a 1000mA) 
- 		    
+ 	
+---	
+
+## Bezpečnostní pokyny 
+1) Vždy postupujte podle přiloženého návodu. 
+2) Nikdy nenechávejte zapnuté zařízení bez dozoru. 
+3) Připojujte pouze kompatibilní baterie. 
+4) Zařízení nesmí být pužíváno ve venkovních prostorech. 
+5) Nesmí dojít ke zkratu žádného z konektorů zařízení.
+6) Zařízení nedisponuje krytím IP. Pokud bylo zařízení poškozeno vodou nesmí být dále používáno.
+7) K zařízení nesmí bý připojovány sériově zapojené baterie.
+8) Před odpojením zařízení ze sítě vždy odpojte baterii 
+
 
 ---
 
