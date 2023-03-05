@@ -66,6 +66,7 @@
 <p> Vztah mezi výstupním proudem a kapacitou baterie není lineární. Místo toho následuje křivku, kde kapacita klesá rychleji při vyšších odběrech a pomaleji při nižších odběrech, jak můžeme vidět na obrázku č.8</p>
 <p align="left"><img src="media/discharge_char.png"><p>
   <p>Obr č.8</p>
+  <p> Na obrázku č.8 na první pphled chybí hodnota vybíjecího proudu, místo ní je uvedena hodnota C. C hodnocení se vyjadřuje jako násobek hodnoty kapacity baterie. Například baterie s kapacitou 2000mAh a C hodnocením 1C může bezpečně dodat výstupní proud 2000mA bez poškození nebo přehřátí. Baterie s C hodnocením 2C může bezpečně dodat výstupní proud 4000mA.C hodnocení baterie můžeme najít v jejím datasheetu. 
 
 ---
 
