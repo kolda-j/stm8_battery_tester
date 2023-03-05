@@ -62,6 +62,23 @@
 <p>Vybíjení baterie začne ve chvíli kdy STM8 nastaví svůj výstup PD3 na logickou 0, v tuto chvíli se začne baterie vybíjet předem nastaveným proudem. Vybíjecí proud je konstantní (není závislý na napětí připojené baterie). Mikrokontroler v pravidelných intervalech měří napětí na děliči, které se rovná polovině napětí baterie. Zároveň také počítá uplynulý čas od začátku vybíjení, až po jeho ukončení. Právě díky těmto hodnotám je zařízení schopno vypočítat kapacitu baterie. </p>
 <p>Vzorec výpočtu je následující : $Kapacita[Ah] = I[A] * t[h]$
 
+---
+
+## Vývojový diagram 
+
+```mermaid
+graph TB
+START -->VYBER_PROUD-->ZMĚŘ_BATERII
+ZMĚŘ_BATERII --> B{BATERIE_NABITÁ} --> |NE| ZAČNI_NABÍJET --> ZMĚŘ_BATERII 
+B --> |ANO| PRESTAŇ_NABIJET --> ZAPNI_STOPKY --> ZAČNI_VYBIJET---> ZMĚR_BATERII
+ZMĚR_BATERII --> C{BATERIE_VYBITÁ} --> |NE| ZAČNI_VYBIJET
+C --> |ANO| PŘESTAŇ_VYBÍJET --> VYPNI_STOPKY 
+VYPNI_STOPKY --> VYPOČÍTEJ_KAPACITU --> ZAČNI_NABIJET --> ZMER_BATERII --> D{BATERIE_NABITA} --> |NE| ZAČNI_NABIJET
+D --> |ANO| UKAŽ_KAPACITU --> END
+```
+---
+
+
 ## Program
 #### Ovládání digitálních potenciometrů 
 Zařízení používá digitální potenciometry pro nastavení nabíjecího a vybíjecího proudu baterie. Změna odporu potenciometru probíhá skokově, a to ve sto krocích. Ke změně o jeden krok slouží funkce ```discharge_up_resistance && discharge_down_resistance``` (stejná dvojice funkcí existuje i pro nabíjecí část obvodu). Posun o jeden krkok uskutečníme kombinací logických 1 a 0 podle tabulky č.4
