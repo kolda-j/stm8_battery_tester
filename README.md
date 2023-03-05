@@ -62,6 +62,11 @@
 <p>Vybíjení baterie začne ve chvíli kdy STM8 nastaví svůj výstup PD3 na logickou 0, v tuto chvíli se začne baterie vybíjet předem nastaveným proudem. Vybíjecí proud je konstantní (není závislý na napětí připojené baterie). Mikrokontroler v pravidelných intervalech měří napětí na děliči, které se rovná polovině napětí baterie. Zároveň také počítá uplynulý čas od začátku vybíjení, až po jeho ukončení. Právě díky těmto hodnotám je zařízení schopno vypočítat kapacitu baterie. </p>
 <p>Vzorec výpočtu je následující : $Kapacita[Ah] = I[A] * t[h]$
 
+## Závislost kapacity baterie na vybíjecím proudu 
+<p> Vztah mezi výstupním proudem a kapacitou baterie není lineární. Místo toho následuje křivku, kde kapacita klesá rychleji při vyšších odběrech a pomaleji při nižších odběrech, jak můžeme vidět na obrázku č.8</p>
+<p align="left"><img src="media/discharge_char.png"><p>
+  <p>Obr č.8</p>
+
 ---
 
 ## Vývojový diagram 
@@ -133,4 +138,4 @@ void discharge_setup(void)
 ## Krabička
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
-<p>Obr č.8</p>
+<p>Obr č.9</p>
