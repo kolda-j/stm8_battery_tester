@@ -24,16 +24,16 @@
   
 ### Osazená univerzální deska 
 
-<p float="center">
+<p align="center">
   <img src="media/pcb.jpg" width="300" />
   <img src="media/pcb1.jpg" width="300" /> 
 </p>
-<p>Obr č.2, č.3</p>
-<p float="center">
+<p align="center">Obr č.2, č.3</p>
+<p align="center">
   <img src="media/pcb2.jpg" width="300" />
   <img src="media/pcb3.jpg" width="300" /> 
 </p>
-<p>Obr č.4, č.5</p>
+<p align="center"> Obr č.4, č.5</p>
 
 ---
 
