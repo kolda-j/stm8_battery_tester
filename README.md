@@ -163,3 +163,10 @@ void discharge_setup(void)
 <p>Krabička byla vytvořena v programu Onshape a vytištěna na 3D tiskárně, Model lze vytisknout bez použití podpěr a skládá se ze čtyř částí.  </p>
 <p align="center"><img src="media/enclosure.png"><p>
 <p>Obr č.9</p>
+
+
+## Porovnání s testerem baterií liitokala lii-500
+<p align="center"><img src="media/liitokala.jpeg"><p>
+<p>Obr č.10</p>
+
+<p>Podmínky testu - oba testery budou měřit stejnou baterii. Liitokala bude měřit v režimu "Normal Test", který funguje na stejném principu jako moje zařízení. 
