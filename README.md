@@ -28,7 +28,7 @@
 ---
 
 ## Schéma zapojení
-<p align="center"><img src="media/schematic1.png"><p>
+<p align="center"><img src="media/schematic3.png"><p>
 <p>Obr č.1</p>
   
 ---
@@ -40,7 +40,7 @@
 ---
   
 ## Seznam Součástek
-<p align="center"><img src="media/BOM1.png"><p>
+<p align="center"><img src="media/BOM2.png"><p>
 <p>Tab č.2</p>
 
 ---
