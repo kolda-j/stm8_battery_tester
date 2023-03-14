@@ -1,135 +1,137 @@
-﻿// Vzorovя┐╜ projekt pro STM8S103F 
+//pridani knihoven
 #include "stm8s.h"
 #include "delay.h"
 #include "milis.h"
 #include "spse_stm8.h"
-//#include "stm8_hd44780.h
 
+//display
+//--------------------------------------------------------------------------------------------------------------------
+// makra kterymi volime komunikacni piny a porty pro MAX7219 
+#define CLK_GPIO GPIOC			
+#define CLK_PIN  GPIO_PIN_5		
+#define DATA_GPIO GPIOC			
+#define DATA_PIN  GPIO_PIN_7	
+#define CS_GPIO GPIOC					
+#define CS_PIN  GPIO_PIN_6		
 
-// makra kterя┐╜mi volя┐╜me komunikacnя┐╜ piny
-#define CLK_GPIO GPIOC				// port na kterя┐╜m je CLK vstup budice
-#define CLK_PIN  GPIO_PIN_5		// pin na kterя┐╜m je CLK vstup budice
-#define DATA_GPIO GPIOC				// port na kterя┐╜m je DIN vstup budice
-#define DATA_PIN  GPIO_PIN_7	// pin na kterя┐╜m je DIN vstup budice
-#define CS_GPIO GPIOC					// port na kterя┐╜m je LOAD/CS vstup budice
-#define CS_PIN  GPIO_PIN_6		// pin na kterя┐╜m je LOAD/CS vstup budice
-
-// makra kterя┐╜ zprehlednujя┐╜ zdrojovя┐╜ kя┐╜d a delajя┐╜ ho snя┐╜ze prenositelnя┐╜m na jinя┐╜ mikrokontrolя┐╜ry a platformy
+// makra ktera zprehlednuji kod a delaji ho snaze prenositelny na jine mikrokontrolery a platformy
 #define CLK_HIGH 			GPIO_WriteHigh(CLK_GPIO, CLK_PIN)
 #define CLK_LOW 			GPIO_WriteLow(CLK_GPIO, CLK_PIN)
-#define DATA_HIGH 		GPIO_WriteHigh(DATA_GPIO, DATA_PIN)
+#define DATA_HIGH 			GPIO_WriteHigh(DATA_GPIO, DATA_PIN)
 #define DATA_LOW 			GPIO_WriteLow(DATA_GPIO, DATA_PIN)
 #define CS_HIGH 			GPIO_WriteHigh(CS_GPIO, CS_PIN)
 #define CS_LOW 				GPIO_WriteLow(CS_GPIO, CS_PIN)
 
-// makra adres/prя┐╜kazu pro citelnejя┐╜я┐╜ ovlя┐╜dя┐╜nя┐╜ MAX7219
-#define NOOP 					0  	// No operation
-#define DIGIT0 				1		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT1 				2		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT2 				3		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT3 				4		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT4 				5		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT5 				6		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT6 				7		// zя┐╜pis hodnoty na 1. cifru
-#define DIGIT7 				8		// zя┐╜pis hodnoty na 1. cifru
-#define DECODE_MODE 	9		// Aktivace/Deaktivace znakovя┐╜ sady (my volя┐╜me vя┐╜dy hodnotu DECODE_ALL)
-#define INTENSITY 		10	// Nastavenя┐╜ jasu - argument je cя┐╜slo 0 aя┐╜ 15 (vetя┐╜я┐╜ cя┐╜slo vetя┐╜я┐╜ jas)
-#define SCAN_LIMIT 		11	// Volba poctu cifer (velikosti displeje) - argument je cя┐╜slo 0 aя┐╜ 7 (my dя┐╜vя┐╜me vя┐╜dy 7)
+// makra adres/prikazu pro citelnejsi ovladani MAX7219
+#define NOOP 				0  		// No operation
+#define DIGIT0 				1		// zápis hodnoty na 1. cifru
+#define DIGIT1 				2		// zápis hodnoty na 1. cifru
+#define DIGIT2 				3		// zápis hodnoty na 1. cifru
+#define DIGIT3 				4		// zápis hodnoty na 1. cifru
+#define DIGIT4 				5		// zápis hodnoty na 1. cifru
+#define DIGIT5 				6		// zápis hodnoty na 1. cifru
+#define DIGIT6 				7		// zápis hodnoty na 1. cifru
+#define DIGIT7 				8		// zápis hodnoty na 1. cifru
+#define DECODE_MODE 			9		// Aktivace/Deaktivace znakove sady
+#define INTENSITY 			10	// Nastaveni jasu - argument je cislo 0 do 15 
+#define SCAN_LIMIT 			11	// Volba poctu cifer (velikosti displeje) - argument je cislo 0 do 7 
 #define SHUTDOWN 			12	// Aktivace/Deaktivace displeje (ON / OFF)
-#define DISPLAY_TEST 	15	// Aktivace/Deaktivace "testu" (rozsvя┐╜tя┐╜ vя┐╜echny segmenty)
+#define DISPLAY_TEST 			15	// Aktivace/Deaktivace "testu" (rozsviti vsechny segmenty)
 
 // makra argumentu
 // argumenty pro SHUTDOWN
 #define DISPLAY_ON		1		// zapne displej
 #define DISPLAY_OFF		0		// vypne displej
+
 // argumenty pro DISPLAY_TEST
 #define DISPLAY_TEST_ON 	1	// zapne test displeje
 #define DISPLAY_TEST_OFF 	0	// vypne test displeje
+
 // argumenty pro DECODE_MOD
-#define DECODE_ALL			0b11111111 // (lepя┐╜я┐╜ zя┐╜pis 0xff) zapя┐╜nя┐╜ znakovou sadu pro vя┐╜echny cifry
-#define DECODE_NONE			0 // vypя┐╜nя┐╜ znakovou sadu pro vя┐╜echny cifry// odeя┐╜le do budice MAX7219 16bitovя┐╜ cя┐╜slo sloя┐╜enя┐╜ z prvnя┐╜ho a druhя┐╜ho argumentu (nejprve adresa, potя┐╜ data)
+#define DECODE_ALL			0b11111111 // (lepší zápis 0xff) zapíná znakovou sadu pro všechny cifry
+#define DECODE_NONE			0	 // vypíná znakovou sadu pro všechny cifry
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 
 // ovladani nabijeni/vybijeni
+//---------------------------------------------------------------------------------------------------------------------------------------
+// makra digitalnich potenciometru
 #define discharge_port GPIOD
 #define discharge_pin GPIO_PIN_3
-
 #define discharge_chip_select_port GPIOD
 #define discharge_chip_select_pin GPIO_PIN_6
-
 #define discharge_increment_port GPIOD
 #define discharge_increment_pin GPIO_PIN_5
-
 #define discharge_up_down_port GPIOD
 #define discharge_up_down_pin GPIO_PIN_4
-
 #define charge_port GPIOD
 #define charge_pin GPIO_PIN_1
-
 #define charge_chip_select_port GPIOA
 #define charge_chip_select_pin GPIO_PIN_1
-
 #define charge_increment_port GPIOA
 #define charge_increment_pin GPIO_PIN_2
-
 #define charge_up_down_port GPIOA
 #define charge_up_down_pin GPIO_PIN_3
 
+//vytvoreni promennych 
 uint16_t charge_counter = 0;
 uint16_t discharge_counter = 0;
 uint16_t d[3] = {2, 5, 20}; // nastaveni vybijeciho proudu 2=100mA, 5=253mA, 20=1009mA
-uint16_t ch = 80; //nastaveni nabijeciho proudu =100mA, =250mA, =1000mA
+uint16_t ch[3] = {1, 47, 87}; //nastaveni nabijeciho proudu 1=100mA, 47=250mA, 87=1000mA
 uint8_t second_charge_cycle = 0;
 
+//display
 void max7219_posli(uint8_t adresa, uint8_t data){ // posle zpravu displayi, z elektromys 
-	uint8_t maska; // pomocnя┐╜ promennя┐╜, kterя┐╜ bude slouя┐╜it k prochя┐╜zenя┐╜ dat bit po bitu
-	CS_LOW; // nastavя┐╜me linku LOAD/CS do я┐╜rovne Low (abychom po zapsя┐╜nя┐╜ vя┐╜ech 16ti bytu mohli vygenerovat na CS vzestupnou hranu)
+	uint8_t maska; // pomocná proměnná, která bude sloužit k procházení dat bit po bitu
+	CS_LOW; // nastavíme linku LOAD/CS do úrovně Low (abychom po zapsání všech 16ti bytů mohli vygenerovat na CS vzestupnou hranu)
 
-	// nejprve odeя┐╜leme prvnя┐╜ch 8bitu zprя┐╜vy (adresa/prя┐╜kaz)
-	maska = 0b10000000; // lepя┐╜я┐╜ zя┐╜pis je: maska = 1<<7
-	CLK_LOW; // pripravя┐╜me si na CLK vstup budice я┐╜roven Low
-	while(maska){ // dokud jsme neposlali vя┐╜ech 8 bitu
-		if(maska & adresa){ // pokud mя┐╜ prя┐╜ve vysя┐╜lanя┐╜ bit hodnotu 1
-			DATA_HIGH; // nastavя┐╜me budici vstup DIN do я┐╜rovne High
+	// nejprve odešleme prvních 8bitů zprávy (adresa/příkaz)
+	maska = 0b10000000; // lepší zápis je: maska = 1<<7
+	CLK_LOW; // připravíme si na CLK vstup budiče úroveň Low
+	while(maska){ // dokud jsme neposlali všech 8 bitů
+		if(maska & adresa){ // pokud má právě vysílaný bit hodnotu 1
+			DATA_HIGH; // nastavíme budiči vstup DIN do úrovně High
 		}
-		else{ // jinak mя┐╜ prя┐╜ve vysя┐╜lanя┐╜ bit hodnotu 0 a...
-			DATA_LOW;	// ... nastavя┐╜me budici vstup DIN do я┐╜rovne Low
+		else{  // jinak má právě vysílaný bit hodnotu 0 a...
+			DATA_LOW;	// ... nastavíme budiči vstup DIN do úrovně Low
 		}
-		CLK_HIGH; // prejdeme na CLK z я┐╜rovne Low do я┐╜rovne High, a budic si zapя┐╜e hodnotu bitu, kterou jsme nastavili na DIN
-		maska = maska>>1; // rotujeme masku abychom v prя┐╜tя┐╜m kroku vysя┐╜lali niя┐╜я┐╜я┐╜ bit
-		CLK_LOW; // vrя┐╜tя┐╜me CLK zpet do Low abychom mohli celя┐╜ proces vysя┐╜lя┐╜nя┐╜ bitu opakovat
+		CLK_HIGH;// přejdeme na CLK z úrovně Low do úrovně High, a budič si zapíše hodnotu bitu, kterou jsme nastavili na DIN
+		maska = maska>>1; // rotujeme masku abychom v příštím kroku vysílali nižší bit
+		CLK_LOW; // vrátíme CLK zpět do Low abychom mohli celý proces vysílání bitu opakovat
 	}
 
-	// potя┐╜ poя┐╜leme dolnя┐╜ch 8 bitu zprя┐╜vy (data/argument)
+	// poté pošleme dolních 8 bitů zprávy (data/argument)
 	maska = 0b10000000;
-	while(maska){ // dokud jsme neposlali vя┐╜ech 8 bitu
-		if(maska & data){ // pokud mя┐╜ prя┐╜ve vysя┐╜lanя┐╜ bit hodnotu 1
-			DATA_HIGH; // nastavя┐╜me budici vstup DIN do я┐╜rovne High
+	while(maska){ // dokud jsme neposlali všech 8 bitů
+		if(maska & data){  // pokud má právě vysílaný bit hodnotu 1
+			DATA_HIGH; // nastavíme budiči vstup DIN do úrovně High
 		}
-		else{ // jinak mя┐╜ prя┐╜ve vysя┐╜lanя┐╜ bit hodnotu 0 a...
-			DATA_LOW;	// ... nastavя┐╜me budici vstup DIN do я┐╜rovne Low
+		else{ // jinak má právě vysílaný bit hodnotu 0 a...
+			DATA_LOW;	// ... nastavíme budiči vstup DIN do úrovně Low
 		}
-		CLK_HIGH; // prejdeme na CLK z я┐╜rovne Low do я┐╜rovne High, a v budic si zapя┐╜e hodnotu bitu, kterou jsme nastavili na DIN
-		maska = maska>>1; // rotujeme masku abychom v prя┐╜tя┐╜m kroku vysя┐╜lali niя┐╜я┐╜я┐╜ bit
-		CLK_LOW; // vrя┐╜tя┐╜me CLK zpet do Low abychom mohli celя┐╜ proces vysя┐╜lя┐╜nя┐╜ bitu opakovat
+		 CLK_HIGH; // přejdeme na CLK z úrovně Low do úrovně High, a v budič si zapíše hodnotu bitu, kterou jsme nastavili na DIN
+		 maska = maska>>1; // rotujeme masku abychom v příštím kroku vysílali nižší bit
+		 CLK_LOW; // vrátíme CLK zpět do Low abychom mohli celý proces vysílání bitu opakovat
 	}
 
-	CS_HIGH; // nastavя┐╜me LOAD/CS z я┐╜rovne Low do я┐╜rovne High a vygenerujeme tя┐╜m vzestupnou hranu (pokyn pro MAX7219 aby zpracoval nя┐╜ prя┐╜kaz)
+	CS_HIGH; // nastavíme LOAD/CS z úrovně Low do úrovně High a vygenerujeme tím vzestupnou hranu (pokyn pro MAX7219 aby zpracoval náš příkaz)
 }
 
-// nastavя┐╜ CLK,LOAD/CS,DATA jako vя┐╜stupy a nakonfiguruje displej
+// nastaví CLK,LOAD/CS,DATA jako výstupy a nakonfiguruje displej
 void max7219_init(void){
 GPIO_Init(CS_GPIO,CS_PIN,GPIO_MODE_OUT_PP_LOW_SLOW);
 GPIO_Init(CLK_GPIO,CLK_PIN,GPIO_MODE_OUT_PP_LOW_SLOW);
 GPIO_Init(DATA_GPIO,DATA_PIN,GPIO_MODE_OUT_PP_LOW_SLOW);
-// nastavя┐╜me zя┐╜kladnя┐╜ parametry budice
-max7219_posli(DECODE_MODE, 0b11111100); // zapnout znakovou sadu na vя┐╜ech cifrя┐╜ch krome poslednich dvou 
-max7219_posli(SCAN_LIMIT, 7); // velikost displeje 8 cifer (pocя┐╜tя┐╜no od nuly, proto je argument cя┐╜slo 7)
-max7219_posli(INTENSITY, 5); // volя┐╜me ze zacя┐╜tku nя┐╜zkя┐╜ jas (vysokя┐╜ jas muя┐╜e mя┐╜t velkou spotrebu - aя┐╜ 0.25A !)
-max7219_posli(DISPLAY_TEST, DISPLAY_TEST_OFF); // 
+
+// nastavíme základní parametry budiče
+max7219_posli(DECODE_MODE, 0b11111100); // zapnout znakovou sadu na všech cifrách krome poslednich dvou 
+max7219_posli(SCAN_LIMIT, 7); // velikost displeje 8 cifer (pocitano od nuly, proto je argument cislo 7)
+max7219_posli(INTENSITY, 5);  // volíme ze začátku nízký jas (vysoký jas může mít velkou spotřebu - až 0.25A !)
+max7219_posli(DISPLAY_TEST, DISPLAY_TEST_OFF); // Funkci "test" nechceme mít zapnutou
 max7219_posli(SHUTDOWN, DISPLAY_ON); // zapneme displej
 }
-
-// pro milis -> poslednя┐╜ cas provedeni funkce
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+// pro milis -> posledni cas provedeni funkce
 static uint16_t last_time_timer=0;
 static uint16_t last_time_charge=0;
 
@@ -146,8 +148,7 @@ uint8_t hours, minutes, seconds;
 uint8_t timer_on = 0; 
 
 // timer_reset -> 0 nic se nedeje
-// timer_reset -> 1 kdykoli nastane, pri dalsim pocitani casu
-// 								se cas resetuje na 0s 
+// timer_reset -> 1 kdykoli nastane, pri dalsim pocitani casu se cas resetuje na 0s 
 uint8_t timer_reset = 0;
 
 // for setting discharge value
@@ -162,17 +163,21 @@ uint8_t charge_animation = 0;
 // decimal point ticking
 uint8_t decimal_point = 0;
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
+//funkce pro nastaveni pinu digitanich pot. a funkce pro nastaveni hodnot digitalnich pot.
+//---------------------------------------------------------------------------------------------------------------------------------
 void charge_discharge_init(void)
 {   //discharge
 	GPIO_Init(discharge_chip_select_port, discharge_chip_select_pin, GPIO_MODE_OUT_PP_LOW_SLOW);
 	GPIO_Init(discharge_increment_port, discharge_increment_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
 	GPIO_Init(discharge_up_down_port, discharge_up_down_pin, GPIO_MODE_OUT_PP_LOW_SLOW);
-    GPIO_Init(discharge_port, discharge_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
+   	 GPIO_Init(discharge_port, discharge_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
     //charge
-    GPIO_Init(charge_chip_select_port, charge_chip_select_pin, GPIO_MODE_OUT_PP_LOW_SLOW);
+   	 GPIO_Init(charge_chip_select_port, charge_chip_select_pin, GPIO_MODE_OUT_PP_LOW_SLOW);
 	GPIO_Init(charge_increment_port, charge_increment_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
 	GPIO_Init(charge_up_down_port, charge_up_down_pin, GPIO_MODE_OUT_PP_LOW_SLOW);
-    GPIO_Init(charge_port, charge_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
+    	GPIO_Init(charge_port, charge_pin, GPIO_MODE_OUT_PP_HIGH_SLOW);
 }
 
 void discharge_up_resistance(void)
@@ -197,7 +202,7 @@ void charge_up_resistance(void)
 	GPIO_WriteLow(charge_increment_port, charge_increment_pin);
 	_delay_us(100);
 	GPIO_WriteHigh(charge_increment_port, charge_increment_pin);
-} //(5000mah 3,5V baterie pro nabijeni)
+} 
 
 void charge_down_resistance(void)
 {
@@ -207,7 +212,7 @@ void charge_down_resistance(void)
 	GPIO_WriteHigh(charge_increment_port, charge_increment_pin);
 }
 
-void discharge_setup(void)
+void discharge_setup(void)//nastavi pozadovany odpor digital. pot. (vybijeci proud)
 {
     while (discharge_counter < 100)
     {
@@ -222,7 +227,7 @@ void discharge_setup(void)
     } 
 }
 
-void charge_setup(void)
+void charge_setup(void)//nastavi pozadovany odpor digital. pot. (nabijeci proud)
 {
 	while (charge_counter < 100)
     {
@@ -237,26 +242,27 @@ void charge_setup(void)
     } 
 }
 
-void discharge_on(void)
+void discharge_on(void)//zapne vybijeni
 {
 	GPIO_WriteLow(discharge_port, discharge_pin);
 }
 
-void discharge_off(void)
+void discharge_off(void)//vypne vybijeni
 {
 	GPIO_WriteHigh(discharge_port, discharge_pin);
 }
 
-void charge_on(void)
+void charge_on(void)//zapne nabijeni
 {
 	GPIO_WriteHigh(charge_port, charge_pin);
 }
 
-void charge_off(void)
+void charge_off(void)//vypne nabijeni
 {
 	GPIO_WriteLow(charge_port, charge_pin);
 }
 
+//-------------------------------------------------------------------------------------
 void show_discharge_current(uint8_t mode){
 	max7219_posli(DIGIT1, 0b01110111);
 	if (mode==1){
