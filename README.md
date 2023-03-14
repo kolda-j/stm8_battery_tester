@@ -4,12 +4,6 @@
 
 ---
 
-<p align="center"><img src="media/dokumentace_kolda.jpg"><p>
-<p align="center"><img src="media/dokumentace_kolda1.jpg"><p>
-<p align="center"><img src="media/dokumentace_kolda3.jpg"><p>
-
----
-
 ## Specifikace zařízení
 1) Rozměry - 140mm x 100mm x 110mm.
 2) Vstupy a výstupy - Napájecí konektor 5.5 x 2.1 mm samice - Šroubovací konektor 2P pro připojení baterie.
@@ -169,9 +163,3 @@ void discharge_setup(void)
 <p align="center"><img src="media/enclosure.png"><p>
 <p>Obr č.9</p>
 
-
-## Porovnání s testerem baterií liitokala lii-500
-<p align="center"><img src="media/liitokala.jpeg"><p>
-<p>Obr č.10</p>
-
-<p>Podmínky testu - oba testery budou měřit stejnou baterii. Liitokala bude měřit v režimu "Normal Test", který funguje na stejném principu jako moje zařízení. 
