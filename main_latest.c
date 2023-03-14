@@ -265,7 +265,7 @@ void charge_off(void)//vypne nabijeni
 //-------------------------------------------------------------------------------------
 void show_discharge_current(uint8_t mode){
 	max7219_posli(DIGIT1, 0b01110111);
-	if (mode==1){
+	if (mode==1){ 					// zobrazi na display 0.25A
 		max7219_posli(DECODE_MODE, 0b11111100);
 		max7219_posli(DIGIT0, 0);
 		max7219_posli(DIGIT1, 0b01110111);
@@ -278,7 +278,7 @@ void show_discharge_current(uint8_t mode){
 		max7219_posli(DIGIT6, 0b1111);
 		max7219_posli(DIGIT7, 0b1111);
 	}
-	else if (mode==0){
+	else if (mode==0){				// zobrazi na display 0.1A
 		max7219_posli(DECODE_MODE, 0b11111100);
 		max7219_posli(DIGIT1, 0b01110111);
 		max7219_posli(DIGIT2, 1);
@@ -292,7 +292,7 @@ void show_discharge_current(uint8_t mode){
 		max7219_posli(DIGIT7, 0b1111);
 	}
 	
-	else if (mode==2){
+	else if (mode==2){				// zobrazi na display 1A
 		max7219_posli(DECODE_MODE, 0b11111100);
 		max7219_posli(DIGIT1, 0b01110111);
 		max7219_posli(DIGIT2, 1);
@@ -324,13 +324,14 @@ void show_voltage(void){
 	max7219_posli(DIGIT6, 0b1111);
 	max7219_posli(DIGIT7, 0b1111);
 }
-
+//-------------------------------------------------------------------------
+//animace
 void charge_animate(uint8_t charge_animation){
 	if (charge_animation == 0){
 		max7219_posli(DECODE_MODE, 0b11111100);
 		max7219_posli(DIGIT0, 0b00000001);
 		max7219_posli(DIGIT1, 0b00000001);
-		
+		MODE
 		max7219_posli(DIGIT2, 0b00001111);
 		max7219_posli(DIGIT3, 0b00001111);
 		
@@ -386,7 +387,7 @@ void charge_animate(uint8_t charge_animation){
 		max7219_posli(DIGIT7, 0b00001010);
 	}
 }
-
+//----------------------------------------------------------------------------------------------------
 void display_hours(uint8_t hours){
 	max7219_posli(DIGIT7, hours/10);
 	max7219_posli(DIGIT6, hours%10+decimal_point);
@@ -432,30 +433,23 @@ void show_capacity(uint16_t time_in_s, uint8_t discharge_setting){
 	max7219_posli(DIGIT7, 0b1111);
 	show_Ah();
 }
+//-----------------------------------------------------------------------------------------------------------
 
 void setup_ADCs(void){
-	// GPIOC, PIN4
+	// GPIOC, PIN4 napetova reference
 	ADC1_SchmittTriggerConfig(ADC1_SCHMITTTRIG_CHANNEL2,DISABLE);
-	// nastavя┐╜me clock pro ADC (16MHz / 4 = 4MHz)
-	ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D4);
-	// volя┐╜me zarovnя┐╜nя┐╜ vя┐╜sledku (typicky vpravo, jen vyjmecne je vя┐╜hodnя┐╜ vlevo)
-	ADC1_AlignConfig(ADC1_ALIGN_RIGHT);
-	// nasatvя┐╜me multiplexer na nekterя┐╜ ze vstupnя┐╜ch kanя┐╜lu
-	ADC1_Select_Channel(ADC1_CHANNEL_2);
-	// rozbehneme AD prevodnя┐╜k
-	ADC1_Cmd(ENABLE);
+	ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D4);// nastavime clock pro ADC (16MHz / 4 = 4MHz)
+	ADC1_AlignConfig(ADC1_ALIGN_RIGHT);// volime zarovnani vysledku (typicky vpravo)
+	ADC1_Select_Channel(ADC1_CHANNEL_2);// nastavime multiplexer na nektery ze vstupnich kanalu
+	ADC1_Cmd(ENABLE);// rozbehneme AD prevodnik
 	
-	// GPIOD, PIN2
+	// GPIOD, PIN2 odporovy delic napeti baterie
 	ADC1_SchmittTriggerConfig(ADC1_SCHMITTTRIG_CHANNEL3,DISABLE);
-	// nastavя┐╜me clock pro ADC (16MHz / 4 = 4MHz)
-	ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D4);
-	// volя┐╜me zarovnя┐╜nя┐╜ vя┐╜sledku (typicky vpravo, jen vyjmecne je vя┐╜hodnя┐╜ vlevo)
-	ADC1_AlignConfig(ADC1_ALIGN_RIGHT);
-	// nasatvя┐╜me multiplexer na nekterя┐╜ ze vstupnя┐╜ch kanя┐╜lu
-	ADC1_Select_Channel(ADC1_CHANNEL_2);
-	ADC1_Select_Channel(ADC1_CHANNEL_3);
-	// rozbehneme AD prevodnя┐╜k
-	ADC1_Cmd(ENABLE);
+	ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D4);// nastavime clock pro ADC (16MHz / 4 = 4MHz)
+	ADC1_AlignConfig(ADC1_ALIGN_RIGHT);// volime zarovnani vysledku (typicky vpravo)
+	ADC1_Select_Channel(ADC1_CHANNEL_2);// nastavime multiplexer na nektery ze vstupnich kanalu
+	ADC1_Select_Channel(ADC1_CHANNEL_3);// nastavime multiplexer na nektery ze vstupnich kanalu
+	ADC1_Cmd(ENABLE);// rozbehneme AD prevodnik
 }
 
 uint16_t voltage_reference = 33;
@@ -474,9 +468,9 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5) // select current tlatcitko
 	show_discharge_current(discharge_setting);
 }
 
-INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4) // checkuje jestli uzivate potrvdil proud tlacitkem
+INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4) // kontroluje jestli uzivate potrvdil proud tlacitkem
 {
-	if (charge_is_on){                            // jakmile PB5 = 1 nabijeni dokonceno, probehne tohle 
+	if (charge_is_on){                            // jakmile PB5 = 1, nabijeni je dokonceno, provede se if
 		max7219_posli(DIGIT0, 0b00000001);
 		max7219_posli(DIGIT1, 0b00000001);
 		
@@ -492,13 +486,13 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4) // checkuje jestli uzivate potrvdil 
 		charge_is_on = 0;
 		charge_off();
 		
-		if (!second_charge_cycle){
+		if (!second_charge_cycle){   //spusti se jenom pri prvnim nabijecim cyklu
 		discharge_on();
 		timer_on = 1;
 		}
 	}
 	else {
-		discharge_setup();		// to co se provede po potvrzeni proudu 
+		discharge_setup();	//provede se po potvrzeni proudu 
 		charge_setup();
 		charge_on();
 		charge_is_on = 1;
@@ -540,7 +534,7 @@ void main(void){
 	// zapnu pocitani
 	//timer_on = 1;
 	
-	// prvni zobrazeni discharge proudu, dalя┐╜я┐╜ je v prerusenich
+	// prvni zobrazeni discharge proudu, dalsi je v prerusenich
 	show_discharge_current(discharge_setting); 
 	
 	enableInterrupts();
@@ -556,7 +550,7 @@ void main(void){
 			last_time_charge = milis();
 		}
 		
-		// controluji, jestli od posledniho pricteni sekundy neuplynula
+		// kontroluji, jestli od posledniho pricteni sekundy neuplynula 
 		// sekunda -> 1000 ms a jestli je timer zapnuty aby pocital
 		if(((milis() - last_time_timer) > 1000) && timer_on) // spusti se pod podminkou ze je zapnuty timer a ubehla vice nez sekunda od posledniho zavolani 
 		{
@@ -564,7 +558,7 @@ void main(void){
 			if (timer_reset){
 				// reset sekund
 				time_in_s = 0;
-				// nastavym reset zpet na 0
+				// nastavim reset zpet na 0
 				timer_reset = 0;
 			} 
 			
@@ -581,7 +575,7 @@ void main(void){
 			}*/
 			devided_battery_voltage = ADC_get(ADC1_CHANNEL_2);
 			voltage_reference = ADC_get(ADC1_CHANNEL_3);
-			battery_voltage = (devided_battery_voltage*10*10);//voltage_reference;
+			battery_voltage = (devided_battery_voltage*10*10);
 			battery_voltage_final = ((battery_voltage/voltage_reference)*245*2)/100;
 			
 			max7219_posli(DECODE_MODE, 0b11111101);
