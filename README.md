@@ -21,14 +21,13 @@
 ---	
 
 ## Bezpečnostní pokyny 
-1) Vždy postupujte podle přiloženého návodu. 
-2) Nikdy nenechávejte zapnuté zařízení bez dozoru. 
-3) Připojujte pouze kompatibilní baterie. 
-4) Zařízení nesmí být pužíváno ve venkovních prostorech. 
-5) Nesmí dojít ke zkratu žádného z konektorů zařízení.
-6) Zařízení nedisponuje krytím IP. Pokud bylo zařízení poškozeno vodou nesmí být dále používáno.
-7) K zařízení nesmí bý připojovány sériově zapojené baterie.
-8) Před odpojením zařízení ze sítě vždy odpojte baterii 
+1) Nikdy nenechávejte zapnuté zařízení bez dozoru. 
+2) Připojujte pouze kompatibilní baterie. 
+3) Zařízení nesmí být pužíváno ve venkovních prostorech. 
+4) Nesmí dojít ke zkratu žádného z konektorů zařízení.
+5) Zařízení nedisponuje krytím IP. Pokud bylo zařízení poškozeno vodou nesmí být dále používáno.
+6) K zařízení nesmí bý připojovány sériově zapojené baterie.
+7) Před odpojením zařízení ze sítě vždy odpojte baterii 
 
 
 ---
